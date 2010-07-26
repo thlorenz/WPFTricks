@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared\Shared.csproj", "{AADB75FA-123A-407B-966A-D1121C448136}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbacks", "..\Callbacks\Callbacks\Callbacks.csproj", "{810E2CDB-631D-4594-B85C-81A06A0D3705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "..\Validation\Validation\Validation.csproj", "{CACDADEF-1925-45F4-ADCD-B9143973FB7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AADB75FA-123A-407B-966A-D1121C448136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADB75FA-123A-407B-966A-D1121C448136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADB75FA-123A-407B-966A-D1121C448136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADB75FA-123A-407B-966A-D1121C448136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{810E2CDB-631D-4594-B85C-81A06A0D3705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{810E2CDB-631D-4594-B85C-81A06A0D3705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{810E2CDB-631D-4594-B85C-81A06A0D3705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{810E2CDB-631D-4594-B85C-81A06A0D3705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

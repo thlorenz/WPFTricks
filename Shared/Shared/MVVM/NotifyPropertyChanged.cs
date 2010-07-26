@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace Callbacks.Base
+namespace Shared.MVVM
 {
     public abstract class NotifyPropertyChanged : INotifyPropertyChanged
     {

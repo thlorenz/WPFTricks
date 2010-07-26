@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
-namespace Callbacks.Base
+namespace Shared.MVVM
 {
     public class SimpleCommand : ICommand
     {

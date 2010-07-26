@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Callbacks.Base;
-using Callbacks.Interfaces;
 using System.Windows.Input;
+using Callbacks.Interfaces;
+using Shared.MVVM;
 
 namespace Callbacks.ViewModels
 {
