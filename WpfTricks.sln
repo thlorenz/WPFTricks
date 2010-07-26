@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared\Shared.csproj", "{AADB75FA-123A-407B-966A-D1121C448136}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared\Shared.csproj", "{AADB75FA-123A-407B-966A-D1121C448136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbacks", "..\Callbacks\Callbacks\Callbacks.csproj", "{810E2CDB-631D-4594-B85C-81A06A0D3705}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbacks", "Callbacks\Callbacks\Callbacks.csproj", "{810E2CDB-631D-4594-B85C-81A06A0D3705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "..\Validation\Validation\Validation.csproj", "{CACDADEF-1925-45F4-ADCD-B9143973FB7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "Validation\Validation\Validation.csproj", "{CACDADEF-1925-45F4-ADCD-B9143973FB7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
