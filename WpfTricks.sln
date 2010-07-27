@@ -7,6 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbacks", "Callbacks\Call
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "Validation\Validation\Validation.csproj", "{CACDADEF-1925-45F4-ADCD-B9143973FB7C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{0BB10579-6C8D-4389-AC88-51DFDA27F0BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interactivity", "Interactivity", "{F06D53E1-B77E-4A7D-9B72-74D76D12256A}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\Interactivity\Microsoft.Expression.Interactions.dll = Lib\Interactivity\Microsoft.Expression.Interactions.dll
+		Lib\Interactivity\Microsoft.Expression.Interactions.xml = Lib\Interactivity\Microsoft.Expression.Interactions.xml
+		Lib\Interactivity\System.Windows.Interactivity.dll = Lib\Interactivity\System.Windows.Interactivity.dll
+		Lib\Interactivity\System.Windows.Interactivity.xml = Lib\Interactivity\System.Windows.Interactivity.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviours", "Behaviors\Behaviours\Behaviours.csproj", "{120D1AAB-047B-4043-B712-2843432130F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,8 +37,15 @@ Global
 		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACDADEF-1925-45F4-ADCD-B9143973FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120D1AAB-047B-4043-B712-2843432130F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120D1AAB-047B-4043-B712-2843432130F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120D1AAB-047B-4043-B712-2843432130F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120D1AAB-047B-4043-B712-2843432130F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F06D53E1-B77E-4A7D-9B72-74D76D12256A} = {0BB10579-6C8D-4389-AC88-51DFDA27F0BA}
 	EndGlobalSection
 EndGlobal

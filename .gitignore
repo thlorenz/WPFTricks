@@ -3,7 +3,6 @@
 *.html
 *.exp
 *.pdb
-*.dll
 *.user
 *.aps
 *.pch
@@ -25,13 +24,12 @@
 [Dd]ebug/
 *.lib
 *.sbr
-*.dll
 *.msi
 *.exe
 Thumbs.db
-[Ll]ib/
 [Rr]elease*/
 [Dd]ebug*/
+[Bb]in*/
 UMM/UMM448/IActivaplanner.h
 [Tt]est[Rr]esults/
 *.orig
