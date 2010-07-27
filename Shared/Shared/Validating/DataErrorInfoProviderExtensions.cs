@@ -37,7 +37,7 @@ namespace Shared.Validating
 
         public static IValidation MustHaveMinimumLengthOf(this string property, int length)
         {
-            return new Validation("{0} must be at least " + length +" letters long!", 
+            return new Validation("{0} must be at least " + length +" letters long", 
                 property.Trim().Length >= length);
         }
 

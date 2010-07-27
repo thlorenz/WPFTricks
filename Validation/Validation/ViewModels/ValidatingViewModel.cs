@@ -19,6 +19,7 @@ namespace Validation.ViewModels
         IDataErrorInfoProvider _dataErrorInfoProvider;
         string _firstName;
         string _lastName;
+        ICommand _submitCommand;
 
         public ValidatingViewModel(IDataErrorInfoProvider dataErrorInfoProvider)
         {
@@ -73,13 +74,6 @@ namespace Validation.ViewModels
             }
         }
 
-        public string this[string propertyName]
-        {
-            get { return _dataErrorInfoProvider.Validate(propertyName); }
-        }
-
-        ICommand _submitCommand;
-
         public ICommand SubmitCommand
         {
             get
@@ -90,6 +84,11 @@ namespace Validation.ViewModels
                     CanExecuteDelegate = _ => AllErrors.Count == 0
                 });
             }
+        }
+
+        public string this[string propertyName]
+        {
+            get { return _dataErrorInfoProvider.Validate(propertyName); }
         }
 
         void SetupValidations()
@@ -105,7 +104,7 @@ namespace Validation.ViewModels
                 () => LastName.CanOnlyContainLetters(),
                 () => LastName.NeedsToStartWithCapitalLetter(),
                 () => LastName.CannotHaveLeadingWhiteSpaces(),
-                () => new Val("{0} cannot be the same as the first name!", LastName.IsEmpty() || !LastName.Equals(FirstName)));
+                () => new Val("{0} cannot be the same as the first name", LastName.IsEmpty() || !LastName.Equals(FirstName)));
 
             _dataErrorInfoProvider.AddValidations(() => Age,
                 () => Age.MustBeGreaterOrEqualTo(18),

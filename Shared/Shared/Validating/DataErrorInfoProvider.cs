@@ -17,10 +17,7 @@ namespace Shared.Validating
 
         public IList<string> AllErrors
         {
-            get
-            {
-               return _allErrors;
-            }
+            get { return _allErrors; }
         }
 
         public IDictionary<string, IList<string>> ErrorsForProperty
@@ -64,6 +61,7 @@ namespace Shared.Validating
                 _errorsForProperty[propertyName].Clear();
 
             if (_validations.ContainsKey(propertyName))
+            {
                 _validations[propertyName].ForEach(getValidation => {
 
                     var validation = getValidation();
@@ -73,13 +71,11 @@ namespace Shared.Validating
                     {
                         if (!_errorsForProperty[propertyName].Contains(descriptionWithName))
                             _errorsForProperty[propertyName].Add(descriptionWithName);
-
-                        if (!_allErrors.Contains(descriptionWithName))
-                            _allErrors.Add(descriptionWithName);
                     }
-                    else
-                        _allErrors.Remove(descriptionWithName);
                 });
+
+                UpdateAllErrors();
+            }
 
             return _errorsForProperty[propertyName].IsNotEmpty()
                 ? _errorsForProperty[propertyName].Aggregate((errorsSoFar, extraErrors) => errorsSoFar += extraErrors + "\n")
@@ -94,6 +90,12 @@ namespace Shared.Validating
             return _allErrors.IsNotEmpty()
                 ? _allErrors.Aggregate((errorsSoFar, extraErrors) => errorsSoFar += extraErrors + "\n")
                 : null;
+        }
+        void UpdateAllErrors()
+        {
+            _allErrors.Clear();
+            _errorsForProperty.Values
+                .ForEach(items => items.ForEach(_allErrors.Add));
         }
     }
 }
