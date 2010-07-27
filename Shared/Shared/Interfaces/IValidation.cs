@@ -3,7 +3,7 @@ namespace Shared.Interfaces
 {
     public interface IValidation
     {
-        Func<bool> Condition { get; }
+        bool Condition { get; }
         string Description { get; }
     }
 }

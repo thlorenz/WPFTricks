@@ -6,16 +6,19 @@ using System.ComponentModel;
 using Shared.Interfaces;
 using Shared.MVVM;
 using Shared.Validating;
+using Shared.Extensions;
 using System.Text.RegularExpressions;
-using It = Shared.Validating.DataErrorInfoDescriptions;
 using Val = Shared.Validating.Validation;
+using System.Windows.Input;
 
 namespace Validation.ViewModels
 {
     public class ValidatingViewModel : NotifyPropertyChanged, IDataErrorInfo
     {
+        int _age;
         IDataErrorInfoProvider _dataErrorInfoProvider;
         string _firstName;
+        string _lastName;
 
         public ValidatingViewModel(IDataErrorInfoProvider dataErrorInfoProvider)
         {
@@ -25,22 +28,15 @@ namespace Validation.ViewModels
             _dataErrorInfoProvider.ValidateAll();
         }
 
-        void SetupValidations()
+        public int Age
         {
-            //_dataErrorInfoProvider.AddValidations(() => FirstName, new Dictionary<string, Func<bool>> { 
-            //    {It.CanOnlyContainLetters, () => FirstName.CanOnlyContainLetters() },
-            //    {It.NeedsToStartWithCapitalLetter, () => FirstName .NeedsToStartWithCapitalLetter() },
-            //    { It.CannotHaveLeadingWhiteSpaces, () => FirstName.CannotHaveLeadingWhiteSpaces()},
-            //    { "{0} must be at least two letters long!" , () => FirstName.Trim().Length > 1 },
-            //    { "{0} cannot be empty!", FirstName.CannotBeEmpty() }
-            // });
-
-            _dataErrorInfoProvider.AddValidations(() => FirstName,
-              FirstName.MustHaveMinimumLengthOf(2)); 
-            
+            get { return _age; }
+            set
+            {
+                _age = value;
+                RaisePropertyChanged(() => Age);
+            }
         }
-
-
 
         public IList<string> AllErrors
         {
@@ -52,19 +48,69 @@ namespace Validation.ViewModels
             get { return null; }
         }
 
+        public IDictionary<string, IList<string>> Errors
+        {
+            get { return _dataErrorInfoProvider.ErrorsForProperty; }
+        }
+
         public string FirstName
         {
             get { return _firstName ?? string.Empty; }
             set
             {
                 _firstName = value;
-                RaisePropertyChanged(() => FirstName); 
+                RaisePropertyChanged(() => FirstName);
+            }
+        }
+
+        public string LastName
+        {
+            get { return _lastName ?? string.Empty; }
+            set
+            {
+                _lastName = value;
+                RaisePropertyChanged(() => LastName);
             }
         }
 
         public string this[string propertyName]
         {
             get { return _dataErrorInfoProvider.Validate(propertyName); }
+        }
+
+        ICommand _submitCommand;
+
+        public ICommand SubmitCommand
+        {
+            get
+            {
+                return _submitCommand ?? (_submitCommand = new SimpleCommand
+                {
+                    ExecuteDelegate = _ => Console.WriteLine("Submitting"),
+                    CanExecuteDelegate = _ => AllErrors.Count == 0
+                });
+            }
+        }
+
+        void SetupValidations()
+        {
+            _dataErrorInfoProvider.AddValidations(() => FirstName,
+                () => FirstName.MustHaveMinimumLengthOf(2),
+                () => FirstName.CanOnlyContainLetters(),
+                () => FirstName.NeedsToStartWithCapitalLetter(),
+                () => FirstName.CannotHaveLeadingWhiteSpaces());
+
+            _dataErrorInfoProvider.AddValidations(() => LastName,
+                () => LastName.MustHaveMinimumLengthOf(2),
+                () => LastName.CanOnlyContainLetters(),
+                () => LastName.NeedsToStartWithCapitalLetter(),
+                () => LastName.CannotHaveLeadingWhiteSpaces(),
+                () => new Val("{0} cannot be the same as the first name!", LastName.IsEmpty() || !LastName.Equals(FirstName)));
+
+            _dataErrorInfoProvider.AddValidations(() => Age,
+                () => Age.MustBeGreaterOrEqualTo(18),
+                () => Age.MustBeSmallerOrEqualTo(120));
+
         }
     }
 }

@@ -7,16 +7,10 @@ namespace Shared.Interfaces
     public interface IDataErrorInfoProvider : IFluentInterface
     {
         IList<string> AllErrors { get; }
+        IDictionary<string, IList<string>> ErrorsForProperty { get; }
 
-        void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, params IValidation[] validations);
-
-        void AddValidation<TValue>(Expression<Func<TValue>> propertySelector, string description, Func<bool> condition);
-
-        void AddValidation(string propertyName, string description, Func<bool> condition);
-
-        void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, IDictionary<string, Func<bool>> validations);
-
-        void AddValidations(string propertyName, IDictionary<string, Func<bool>> validations);
+        void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, params Func<IValidation>[] validations);
+        void AddValidations(string propertyName, params Func<IValidation>[] validations);
 
         void ClearAllErrors();
 

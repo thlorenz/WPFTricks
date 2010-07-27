@@ -8,23 +8,14 @@ namespace Shared.Validating
 {
     public class Validation : IValidation
     {
-        Func<bool> _condition;
-        string _description;
-
-        public Validation(string description, Func<bool> condition)
+        public Validation(string description, bool condition)
         {
-            _condition = condition;
-            _description = description;
+            Condition = condition;
+            Description = description;
         }
 
-        public Func<bool> Condition
-        {
-            get { return _condition; }
-        }
+        public bool Condition { get; private set; }
 
-        public string Description
-        {
-            get { return _description; }
-        }
+        public string Description { get; private set; }
     }
 }

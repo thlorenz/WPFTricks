@@ -1,16 +1,42 @@
 ﻿<Window x:Class="Validation.Views.ValidatingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="ValidatingView" Height="300" Width="300">
+    Title="ValidatingView" Height="500" Width="900">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="150" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="First Name">
-            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true}" Margin="5" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="First Name">
+            <StackPanel>
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true}" Margin="5" />
+                <ListView ItemsSource="{Binding Errors[FirstName], Mode=OneWay}" HorizontalAlignment="Stretch" />
+            </StackPanel>
         </GroupBox>
-        <ListView Grid.Row="1" ItemsSource="{Binding AllErrors, Mode=OneWay}" HorizontalAlignment="Stretch" />
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="Last Name">
+            <StackPanel>
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true}" Margin="5" />
+                <ListView ItemsSource="{Binding Errors[LastName], Mode=OneWay}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="0" Grid.Column="2" Header="Age">
+            <StackPanel>
+                <TextBox Text="{Binding Age, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true}" Margin="5" />
+                <ListView ItemsSource="{Binding Errors[Age], Mode=OneWay}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="0"  Header="Error Summary">
+            <ListView ItemsSource="{Binding AllErrors, Mode=OneWay}" HorizontalAlignment="Stretch" />
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="2" Header="Confirmation" >
+            <Button Content="Submit"  Command="{Binding SubmitCommand}" VerticalAlignment="Bottom" />
+        </GroupBox>
     </Grid>
 </Window>

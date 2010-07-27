@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Interfaces\IFluentInterface.cs" />
-    <Compile Include="Validating\DataErrorInfoDescriptions.cs" />
     <Compile Include="Validating\DataErrorInfoProvider.cs" />
     <Compile Include="Interfaces\IDataErrorInfoProvider.cs" />
     <Compile Include="MVVM\NotifyPropertyChanged.cs" />

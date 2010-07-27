@@ -12,63 +12,33 @@ namespace Shared.Validating
     public class DataErrorInfoProvider : IDataErrorInfoProvider
     {
         IList<string> _allErrors = new ObservableCollection<string>();
-        IDictionary<string, IList<IValidation>> _validations = new Dictionary<string, IList<IValidation>>();
+        IDictionary<string, IList<string>> _errorsForProperty = new Dictionary<string, IList<string>>();
+        IDictionary<string, IList<Func<IValidation>>> _validations = new Dictionary<string, IList<Func<IValidation>>>();
 
         public IList<string> AllErrors
         {
-            get { return _allErrors; }
-        }
-
-        public void AddValidation<TValue>(Expression<Func<TValue>> propertySelector, string description, Func<bool> condition)
-        {
-            var memberExpression = propertySelector.Body as MemberExpression;
-            if (memberExpression != null)
+            get
             {
-                AddValidation(memberExpression.Member.Name, description, condition);
+               return _allErrors;
             }
         }
 
-        public void AddValidation(string propertyName, string description, Func<bool> condition)
+        public IDictionary<string, IList<string>> ErrorsForProperty
         {
-            AddValidations(propertyName, new Dictionary<string, Func<bool>> { { description, condition } });
+            get { return _errorsForProperty; }
         }
 
-        public void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, IDictionary<string, Func<bool>> validations)
+        public void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, params Func<IValidation>[] validations)
         {
             var memberExpression = propertySelector.Body as MemberExpression;
             if (memberExpression != null)
-            {
                 AddValidations(memberExpression.Member.Name, validations);
-            }
         }
 
-        public void AddValidations(string propertyName, IDictionary<string, Func<bool>> validationsDic)
-        { 
-            var validations =  validationsDic
-                .Select(item => new Validation(item.Key, item.Value))
-                .Cast<IValidation>();
-
-            AddValidations(propertyName, validations);
-        }
-
-        public void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, params IValidation[] validations)
-        {
-            AddValidations(propertySelector, validations.Cast<IValidation>());
-        }
-
-        public void AddValidations<TValue>(Expression<Func<TValue>> propertySelector, IEnumerable<IValidation> validations)
-        {
-            var memberExpression = propertySelector.Body as MemberExpression;
-            if (memberExpression != null)
-            {
-                AddValidations(memberExpression.Member.Name, validations);
-            }
-        }
-
-        public void AddValidations(string propertyName, IEnumerable<IValidation> validations)
+        public void AddValidations(string propertyName, params Func<IValidation>[] validations)
         {
             if (!_validations.ContainsKey(propertyName))
-                _validations.Add(propertyName, new List<IValidation>());
+                _validations.Add(propertyName, new List<Func<IValidation>>());
 
             validations.ForEach(_validations[propertyName].Add);
         }
@@ -79,27 +49,40 @@ namespace Shared.Validating
         }
 
         public void ClearErrorsOf(string propertyName)
-        { }
+        {
+            if (_errorsForProperty.ContainsKey(propertyName))
+                _errorsForProperty[propertyName].Clear();
+        }
 
         public string Validate(string propertyName)
         {
             Debug.Assert(!string.IsNullOrEmpty(propertyName));
-         
-            var propertyErrors = new List<string>();
+
+            if (!_errorsForProperty.ContainsKey(propertyName))
+                _errorsForProperty.Add(propertyName, new ObservableCollection<string>());
+            else
+                _errorsForProperty[propertyName].Clear();
 
             if (_validations.ContainsKey(propertyName))
-                _validations[propertyName].ForEach(validation => {
-                    if (!validation.Condition())
+                _validations[propertyName].ForEach(getValidation => {
+
+                    var validation = getValidation();
+                    var descriptionWithName = string.Format(validation.Description, propertyName);
+
+                    if (!validation.Condition)
                     {
-                        var descriptionWithName = string.Format(validation.Description, propertyName);
-                        propertyErrors.Add(descriptionWithName);
+                        if (!_errorsForProperty[propertyName].Contains(descriptionWithName))
+                            _errorsForProperty[propertyName].Add(descriptionWithName);
+
                         if (!_allErrors.Contains(descriptionWithName))
                             _allErrors.Add(descriptionWithName);
                     }
+                    else
+                        _allErrors.Remove(descriptionWithName);
                 });
 
-            return propertyErrors.IsNotEmpty()
-                ? propertyErrors.Aggregate((errorsSoFar, extraErrors) => errorsSoFar += extraErrors + "\n")
+            return _errorsForProperty[propertyName].IsNotEmpty()
+                ? _errorsForProperty[propertyName].Aggregate((errorsSoFar, extraErrors) => errorsSoFar += extraErrors + "\n")
                 : null;
         }
 
@@ -110,7 +93,7 @@ namespace Shared.Validating
 
             return _allErrors.IsNotEmpty()
                 ? _allErrors.Aggregate((errorsSoFar, extraErrors) => errorsSoFar += extraErrors + "\n")
-                : null; 
+                : null;
         }
     }
 }
