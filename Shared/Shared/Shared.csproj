@@ -52,6 +52,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Interfaces\IFluentInterface.cs" />
+    <Compile Include="Validating\DataErrorInfoDescriptions.cs" />
+    <Compile Include="Validating\DataErrorInfoProvider.cs" />
+    <Compile Include="Interfaces\IDataErrorInfoProvider.cs" />
     <Compile Include="MVVM\NotifyPropertyChanged.cs" />
     <Compile Include="MVVM\SimpleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -67,6 +72,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Validating\DataErrorInfoProviderExtensions.cs" />
+    <Compile Include="Interfaces\IValidation.cs" />
+    <Compile Include="Validating\Validation.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
