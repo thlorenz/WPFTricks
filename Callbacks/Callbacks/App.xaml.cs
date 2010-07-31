@@ -21,6 +21,10 @@ namespace Callbacks
             var mainVM = new MainViewModel(new User { FirstName = "Bob", LastName = "Nerdhead", Email = "Bob@uncool.com" });
             var mainWin = new MainView(mainVM);
             mainWin.Show();
+
+            var secondVM = new MainViewModel(new User { FirstName = "Bob2", LastName = "Nerdhead2", Email = "Bob@uncool2.com" });
+            var secondWin = new MainView(secondVM);
+            secondWin.Show();
         }
     }
 }

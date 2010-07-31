@@ -32,7 +32,10 @@ namespace Callbacks.AttachedProperties
             _validBorderBrush = txtBox.BorderBrush;
             _validBorderThickness = txtBox.BorderThickness;
 
-            txtBox.LostFocus += txtBox_LostFocus;
+            if ((Predicate<string>)e.NewValue != null)
+                txtBox.LostFocus += txtBox_LostFocus;
+            else
+                txtBox.LostFocus -= txtBox_LostFocus;
         }
 
         static void txtBox_LostFocus(object sender, RoutedEventArgs e)

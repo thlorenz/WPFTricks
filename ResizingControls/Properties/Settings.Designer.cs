@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Behaviours.Properties
+namespace ResizingControls.Properties
 {
 
 
